@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PEPOLEX.LK - Sri Lanka's Gem Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f5f5f5}
+.header{background:#fff;padding:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 5px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:space-between}
+.logo{color:#f85606;font-weight:900;font-size:22px}
+.gem-box{background:#ffeaa7;padding:6px 12px;border-radius:20px;font-weight:bold}
+.search{width:100%;padding:10px;background:#fff}
+.search input{width:100%;padding:12px;border:none;background:#f0f0f0;border-radius:5px}
+.banner{background:linear-gradient(135deg,#f85606,#ff9a00);color:#fff;padding:20px;text-align:center}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.card img{width:100%;height:140px;object-fit:cover;background:#eee}
+.card-body{padding:8px}
+.price{color:#f85606;font-weight:bold}
+.gem-price{color:#6c5ce7;font-size:12px}
+.btn{width:100%;background:#f85606;color:#fff;border:none;padding:8px;border-radius:4px;margin-top:5px;font-weight:bold}
+.cart-btn{position:fixed;bottom:20px;right:20px;background:#2ecc71;color:#fff;width:60px;height:60px;border-radius:50%;border:none;font-size:24px;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+</style>
+</head>
+<body>
+<div class="header"><div class="logo">PEPOLEX.LK</div><div class="gem-box">💎 <span id="gems">500</span> Gems</div></div>
+<div class="search"><input placeholder="Search gems, jewelry..."></div>
+<div class="banner"><h2>Daraz Style Gems Store</h2><p>Pay with Gems & Get Discounts!</p></div>
+<div class="products" id="products"></div>
+<button class="cart-btn" onclick="checkout()">🛒</button>
+<script>
+const items=[
+{name:"Blue Sapphire 2ct",price:25000,gems:250,img:"https://images.unsplash.com/photo-1603561596112-0a132b757442?w=300"},
+{name:"Ruby Gemstone",price:18000,gems:180,img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=300"},
+{name:"Silver Ring with Gem",price:8500,gems:85,img:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300"},
+{name:"Gem Necklace",price:32000,gems:320,img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300"},
+{name:"Emerald Stone",price:22000,gems:220,img:"https://images.unsplash.com/photo-1601821765780-754fa98637c1?w=300"},
+{name:"Gem Bracelet",price:12000,gems:120,img:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300"}
+];
+let cart=0; let myGems=500;
+const box=document.getElementById('products');
+items.forEach((p,i)=>{
+box.innerHTML+=`<div class="card"><img src="${p.img}"><div class="card-body"><div>${p.name}</div><div class="price">Rs. ${p.price}</div><div class="gem-price">💎 ${p.gems} Gems</div><button class="btn" onclick="buy(${i})">Add to Cart</button></div></div>`;
+});
+function buy(i){
+cart++; myGems-=items[i].gems;
+if(myGems<0){alert("Gems මදි!");myGems+=items[i].gems;cart--;return;}
+document.getElementById('gems').innerText=myGems;
+alert(items[i].name+" Added! 🛒 Items: "+cart);
+}
+function checkout(){
+if(cart==0)return alert("Cart එක හිස්!");
+let text=`Hi PEPOLEX! I want to buy ${cart} items. My Gems left: ${myGems}`;
+window.open(`https://wa.me/94700000000?text=${encodeURIComponent(text)}`);
+}
+</script>
+</body>
+</html>
